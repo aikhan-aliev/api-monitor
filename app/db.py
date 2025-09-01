@@ -36,9 +36,6 @@ SessionLocal = async_sessionmaker(
 
 
 async def init_db() -> None:
-    """
-    Ensure the ./data folder exists and create tables if they don't exist.
-    """
     os.makedirs("./data", exist_ok=True)
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)

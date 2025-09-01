@@ -7,10 +7,6 @@ import httpx
 from app.models import Target, CheckResult
 
 async def http_check(target: Target) -> CheckResult:
-    """
-    Perform an HTTP request with retries and backoff.
-    Returns a CheckResult with latency, status, and error if any.
-    """
     attempts = 0
     delay = target.backoff_s
     start = time.perf_counter()

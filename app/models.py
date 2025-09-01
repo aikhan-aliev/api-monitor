@@ -23,7 +23,6 @@ class Target(TargetIn):
 
     @staticmethod
     def from_in(data: TargetIn) -> "Target":
-        # Create a full Target with a generated UUID
         return Target(id=str(uuid.uuid4()), **data.model_dump())
 
 
