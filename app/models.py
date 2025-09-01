@@ -1,7 +1,8 @@
 from pydantic import BaseModel, HttpUrl
-from typing import List, Optional
+from typing import Optional, Dict, List
 from datetime import datetime
 import uuid
+
 
 class TargetIn(BaseModel):
     name: str
@@ -12,17 +13,19 @@ class TargetIn(BaseModel):
     interval_s: int = 60
     retries: int = 2
     backoff_s: float = 0.5
-    headers: Optional[dict] = None
+    headers: Optional[Dict[str, str]] = None
     enabled: bool = True
     severity: str = "HIGH"
+
 
 class Target(TargetIn):
     id: str
 
     @staticmethod
     def from_in(data: TargetIn) -> "Target":
-        # Generate a unique ID and copy all fields from TargetIn
+        # Create a full Target with a generated UUID
         return Target(id=str(uuid.uuid4()), **data.model_dump())
+
 
 class CheckResult(BaseModel):
     target_id: str
